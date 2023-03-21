@@ -7,8 +7,17 @@ import java.util.Iterator;
  * Created on 10/6/17.
  */
 public class SimpleListImpl implements SimpleList, Iterable<Object> {
+
+    private ListElement head;
+    private int size;
+
     @Override
     public void add(Object o) {
+        if (head == null) {
+            head = new ListElement(o);
+        } else {
+
+        }
 
     }
 
@@ -29,10 +38,12 @@ public class SimpleListImpl implements SimpleList, Iterable<Object> {
 
     private static class ListElement {
         private Object o;
+        private ListElement next;
 
         public ListElement(Object o) {
             this.o = o;
         }
+
     }
 
     public class ListIterator implements Iterator<Object> {
