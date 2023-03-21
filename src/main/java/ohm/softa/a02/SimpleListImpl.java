@@ -44,18 +44,27 @@ public class SimpleListImpl implements SimpleList, Iterable<Object> {
             this.o = o;
         }
 
+        public Object getItem() {
+            return o;
+        }
+
     }
 
     public class ListIterator implements Iterator<Object> {
 
+        private ListElement current = head;
+
         @Override
         public boolean hasNext() {
-            return false;
+            return current != null;
         }
 
         @Override
         public Object next() {
-            return null;
+            ListElement tmp = current;
+            current = current.next;
+            return tmp.getItem();
+
         }
     }
 
