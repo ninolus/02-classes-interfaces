@@ -1,6 +1,7 @@
 package ohm.softa.a02.tests;
 
 import ohm.softa.a02.SimpleFilter;
+import ohm.softa.a02.SimpleList;
 import ohm.softa.a02.SimpleListImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,11 +15,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class SimpleListTest {
 
-	private SimpleListImpl testList;
+	private SimpleListImpl<Integer> testList;
 
 	@BeforeEach
 	void setup(){
-		testList = new SimpleListImpl();
+		testList = new SimpleListImpl<>();
 
 		testList.add(1);
 		testList.add(2);
@@ -43,10 +44,10 @@ public class SimpleListTest {
 
 	@Test
 	void testFilterAnonymousClass(){
-		SimpleListImpl result = (SimpleListImpl) testList.filter(new SimpleFilter() {
+		SimpleListImpl<Integer> result = (SimpleListImpl<Integer>) testList.filter(new SimpleFilter<Integer>() {
 			@Override
-			public boolean include(Object item) {
-				int current = (int)item;
+			public boolean include(Integer item) {
+				int current = item;
 				return current > 2;
 			}
 		});
@@ -59,10 +60,18 @@ public class SimpleListTest {
 
 	@Test
 	void testFilterLambda(){
-		SimpleListImpl result = (SimpleListImpl) testList.filter(o -> ((int)o) % 2 == 0);
-		for(Object o : result){
-			int i = (int)o;
+		SimpleListImpl<Integer> result = (SimpleListImpl<Integer>) testList.filter(o -> (o) % 2 == 0);
+		for(Integer o : result){
+			int i = o;
 			assertTrue(i % 2 == 0);
+		}
+	}
+
+	@Test
+	void testFilterEvenNumbersLambda() {
+		SimpleListImpl<Integer> result = (SimpleListImpl<Integer>) testList.filter(o -> (o) % 2 == 0);
+		for (Integer o : result){
+			assertTrue(o % 2 == 0);
 		}
 	}
 }
